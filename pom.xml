@@ -1,0 +1,223 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.zouhx.zspider</groupId>
+  <artifactId>zspider_master</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+  	<jetty-version>9.4.5.v20170502</jetty-version>
+  </properties>
+  
+  <dependencies>
+  	<dependency>
+	    <groupId>cn.edu.hfut.dmic.webcollector</groupId>
+	    <artifactId>WebCollector</artifactId>
+	    <version>2.71</version>
+	</dependency>
+	<dependency> 
+         <groupId>org.apache.httpcomponents</groupId> 
+          <artifactId>httpclient</artifactId> 
+         <version>4.3</version>         
+        </dependency> 
+        <dependency> 
+         <groupId>org.apache.httpcomponents</groupId> 
+          <artifactId>httpclient-cache</artifactId> 
+         <version>4.3</version>         
+        </dependency> 
+        <dependency> 
+         <groupId>org.apache.httpcomponents</groupId> 
+          <artifactId>httpmime</artifactId> 
+         <version>4.3</version>         
+  	</dependency>
+	 <dependency>
+	    <groupId>net.sf.ehcache</groupId>
+	    <artifactId>ehcache</artifactId>
+	    <version>2.10.4</version>
+	</dependency>
+	<dependency>
+	    <groupId>proxool</groupId>
+	    <artifactId>proxool</artifactId>
+	    <version>0.8.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>dom4j</groupId>
+	    <artifactId>dom4j</artifactId>
+	    <version>1.6.1</version>
+	</dependency>
+	<!-- selenium -->  
+    <dependency>  
+           <groupId>org.seleniumhq.selenium</groupId>  
+           <artifactId>selenium-java</artifactId>  
+           <version>2.44.0</version>  
+       </dependency>  
+       <!-- phantomjsdriver(selenium webdriver 第三方支持) -->  
+       <dependency>  
+           <groupId>com.github.detro</groupId>  
+           <artifactId>phantomjsdriver</artifactId>  
+           <version>1.2.0</version>  
+       </dependency>
+       <dependency>
+	    <groupId>org.elasticsearch</groupId>
+	    <artifactId>elasticsearch</artifactId>
+	    <version>2.4.3</version>
+	</dependency>  
+	<dependency>    
+	    <groupId>net.sf.json-lib</groupId>    
+	    <artifactId>json-lib</artifactId>    
+	    <version>2.4</version>    
+	    <classifier>jdk15</classifier>    
+	</dependency> 
+	<dependency>
+           <groupId>org.codehaus.jackson</groupId>
+           <artifactId>jackson-mapper-asl</artifactId>
+           <version>1.9.4</version>
+     </dependency>
+    <dependency>
+		<groupId>com.sangupta</groupId>
+		<artifactId>murmur</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.9.0</version>
+	</dependency>
+	
+	
+	
+	<!-- web  -->
+	<dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>apache-jstl</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    <dependency>
+	  <groupId>org.eclipse.jetty</groupId>
+	  <artifactId>jetty-servlet</artifactId>
+	  <version>${jetty-version}</version>
+	</dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-annotations</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-webapp</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>apache-jsp</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-jmx</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+
+    <dependency>
+	  <groupId>org.eclipse.jetty</groupId>
+	  <artifactId>jetty-server</artifactId>
+	  <version>${jetty-version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.eclipse.jetty</groupId>
+	  <artifactId>jetty-security</artifactId>
+	  <version>${jetty-version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>
+	    <version>3.9</version>
+	</dependency>
+    
+   <dependency>
+		<groupId>net.sourceforge.jexcelapi</groupId>
+		<artifactId>jxl</artifactId>
+		<version>2.6.10</version>
+   </dependency>
+	
+	<dependency>
+		<groupId>org.sitemesh</groupId>
+		<artifactId>sitemesh</artifactId>
+		<version>3.0.0</version>
+	</dependency>
+	
+	
+	<dependency>
+		<groupId>jdk.tools</groupId>
+		<artifactId>jdk.tools</artifactId>
+		<version>1.8</version>
+		<scope>system</scope>
+		<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+	</dependency>
+	
+	
+	
+	
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <configuration>
+          <useManifestOnlyJar>false</useManifestOnlyJar>
+        </configuration>
+      </plugin>
+      
+      <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-jar-plugin</artifactId>  
+        <configuration>  
+            <archive>  
+                <manifest>  
+                    <addClasspath>true</addClasspath>  
+                    <classpathPrefix>lib/</classpathPrefix>  
+                    <mainClass>com.zouhx.crawler.main.Application</mainClass> <!-- 你项目中的主类 -->  
+                </manifest>  
+            </archive>  
+        </configuration>  
+      </plugin> 
+      <plugin><!--打包依赖的jar包-->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <excludeTransitive>true</excludeTransitive> <!-- 表示是否不包含间接依赖的包 -->
+              <stripVersion>false</stripVersion> <!-- 去除版本信息 -->
+          </configuration>
+
+          <executions>
+              <execution>
+                  <id>copy-dependencies</id>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>copy-dependencies</goal>
+                  </goals>
+                  <configuration>
+                      <!-- 拷贝项目依赖包到lib/目录下 -->
+                      <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                      <excludeTransitive>false</excludeTransitive>
+                      <stripVersion>false</stripVersion>
+                  </configuration>
+              </execution>
+          </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

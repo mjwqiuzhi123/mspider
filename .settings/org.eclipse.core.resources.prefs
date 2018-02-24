@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/zouhx/crawler/log/XLogger.java=GBK
+encoding//src/main/java/com/zouhx/crawler/main/Application.java=GBK
+encoding//src/main/java/com/zouhx/crawler/main/MccCfg.java=GBK
+encoding//src/main/java/com/zouhx/crawler/task/SpiderAgentTask.java=GBK
+encoding//src/main/java/com/zouhx/crawler/util/RedisUtil.java=GBK
+encoding//src/main/resources/conf/proxool.xml=UTF-8
