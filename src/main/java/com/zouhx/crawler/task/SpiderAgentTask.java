@@ -34,7 +34,7 @@ public class SpiderAgentTask extends TimerTask {
 	
 	public static List<String> agentList = new ArrayList<String>();
 	
-	private static ArrayBlockingQueue<String> que = new ArrayBlockingQueue<String>(10000);
+	private static ArrayBlockingQueue<String> que = new ArrayBlockingQueue<String>(1000);
 	
 	private static ThreadPoolExecutor threadPoolExecutor;
 	
@@ -51,11 +51,43 @@ public class SpiderAgentTask extends TimerTask {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		threadPoolExecutor = new ThreadPoolExecutor(25, 25, 2, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(10000));
+		threadPoolExecutor = new ThreadPoolExecutor(25, 50, 2, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(10000));
 		SpiderAgentTask task = new SpiderAgentTask();
 		Timer timer = new Timer();  
         timer.schedule(task, new Date(), 1000*60*30);
 	}
+	
+	class ParseUrl implements Runnable{
+		private String url;
+		
+		public ParseUrl(){
+			url = AGENT_URL;
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			while(true){
+			try {
+				Document document = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31").get();
+				Elements pagination = document.getElementsByClass("pagination");
+				String tmp = pagination.get(0).getElementsByClass("next_page").get(0).attr("href");
+				String nextPage = "";
+				if(tmp != null && !tmp.equals("")){
+					nextPage = root + tmp;//获取下一页
+					url = nextPage;
+				}else{
+					break;
+				}
+				System.out.println("put:" + nextPage);
+				que.put(nextPage);
+				Thread.sleep(1000);
+			} catch (IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		}}
 	
 	//start by mjw
 	public static void parseAgent(){
@@ -84,15 +116,23 @@ public class SpiderAgentTask extends TimerTask {
 				}
 			}
 			
+			new Thread(new ParseUrl()).start();
+			
 			
 			//part 2 新增可用代理
 			//start by mjw
 			while (true) {
-				String agentUrl = que.poll();
+				String agentUrl = null;
+				try {
+					agentUrl = que.take();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("poll:" + agentUrl);
 				if (agentUrl != null) {
 					
-					Document document = Jsoup.connect(agentUrl).get();
+					Document document = Jsoup.connect(agentUrl).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31").get();
 					
 					Element table = document.getElementById("ip_list");
 					
@@ -128,15 +168,15 @@ public class SpiderAgentTask extends TimerTask {
 					}
 					
 					//start by mjw
-					try {
-						Elements pagination = document.getElementsByClass("pagination");
-						String nextPage = root + pagination.get(0).getElementsByClass("next_page").get(0).attr("href");//获取下一页
-						System.out.println("put:" + nextPage);
-						que.put(nextPage);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+//					try {
+//						Elements pagination = document.getElementsByClass("pagination");
+//						String nextPage = root + pagination.get(0).getElementsByClass("next_page").get(0).attr("href");//获取下一页
+//						System.out.println("put:" + nextPage);
+//						que.put(nextPage);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 					//end by mjw
 				
 				} else {
@@ -144,9 +184,6 @@ public class SpiderAgentTask extends TimerTask {
 				}
 			}
 			//end by mjw
-			
-			
-			
 			
 			
 			
@@ -278,6 +315,7 @@ public class SpiderAgentTask extends TimerTask {
 		}
 		public boolean tryConnection(String ip,int port){
 			HttpURLConnection conn = null;
+			System.setProperty("http.keepAlive", "false");
 			Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress(ip, port));
 	        try {
 	        	URL url = new URL("http://www.baidu.com");  
@@ -324,3 +362,4 @@ public class SpiderAgentTask extends TimerTask {
 	}
 	
 }
+
